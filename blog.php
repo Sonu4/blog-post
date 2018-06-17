@@ -124,7 +124,17 @@
       <button class="btn btn-primary" id="btnAddComments">Add Comments</button>
     </div>
     <hr>
-
+    <div class="container">
+        <div>
+          <table class="table table-striped" id="tblComments">
+              <tr>
+                <th>Comment</th>
+                <th>Commented By</th>
+              </tr>
+          </table>
+        </div>
+    </div>
+    <hr>
     <!-- Footer -->
     <footer>
       <div class="container">
@@ -224,7 +234,7 @@
       var ids=finalvalue.id;
       getData();
       /*----------Actual list is shown in here--------------*/
-
+      
       function getData(){
             $.ajax({
               url:"php/getOneBlog.php",
@@ -232,7 +242,8 @@
               data:{id:ids},
               dataType:"json",
               success:function(data){
-      
+                  var blog_id={"blog_id":data[0].id_b};
+                  localStorage.setItem('blog_id',JSON.stringify(blog_id));
                   $('#tbmlMain').append(' <div class="parent"><div class="img"><img  src="php/upload/'+data[0].img_one.replace(/\"/g, "")+'" width="300px" height="300px" class="main_image"><div class="text"><p class="text">'+data[0].blog_body+'</p></div></div></div>');
                   $('#tbmlMain').append('<div class="row"><td><img class="pic" src="php/upload/'+data[0].img_two.replace(/\"/g, "")+'" width="300px" height="300px"></td><td style="text-align:center;"><img class="pic" src="php/upload/'+data[0].img_three.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><img class="pic" src="php/upload/'+data[0].img_four.replace(/\"/g, "")+'" width="300px" height="300px"></div>');
                   $('#tbmlMain').append('<div class="right"><i>Written By--Shubham Kothe</i></div>');  
@@ -241,17 +252,30 @@
       
                   // $('#tblList').append('<tr style="margin-top:50px;"><td colspan="5" style=" padding-bottom: .5em; text-align:center; "><strong>'+data[i].blog_name+'</strong></td></tr style=" padding-bottom: .5em;"><tr><td><img src="php/upload/'+data[i].img_one.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td rowspan="3" style="vertical-align: top;text-align: justify;">'+data[i].blog_body+'</td></tr><tr><td><img src="php/upload/'+data[i].img_two.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td></td></tr><tr style="margin-bottom:50px;"><td><img src="php/upload/'+data[i].img_three.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td></td></tr><br /><br />');
                   
-                
+                 $.ajax({
+                    url:"php/getAllComments.php",
+                    method:"post",
+                    dataType:"json",
+                    success:function(data){
+                      for(var i=0;i<data.length;i++){
+                        $('#tblComments').append('<tr><td>'+data[i].comment+'</td><td>'+data[i].name+'</td></tr>');
+                      }
+                     
+                    }
+                 });
               }
             });
       }
 
      
-
+/*-----------------THis is For Modal -----For Adding Comments------------------------------------*/
      $('#btnAddComments').click(function(){
           $('#myModal').modal('toggle');
      });
-     
+
+    var blog=localStorage.getItem('blog_id');
+    var id_blog=JSON.parse(blog);
+    var main_id_b=id_blog.blog_id;
      $('#btnAuthenticate').click(function(){
             $.ajax({
                 url:"php/authenticateData.php",
@@ -265,7 +289,7 @@
                     if(data.success=='success' && data.type_of_user=='Reader'){
                      $('#myModal2').modal('toggle');
                      $('#myModal').hide(); 
-                     var cmt=$('#txtComments').val();
+                    
 
                      $('#btnSubMit').click(function(){
                           if($('#txtComments').val()==''){
@@ -274,8 +298,9 @@
                               $.ajax({
                                 url:"php/addComments.php",
                                 data:{
-                                  comment:cmt,
-                                  id_b:data.id
+                                  comment:$('#txtComments').val(),
+                                  id_b:main_id_b,
+                                  blog_of:data.id
                                 },
                                 method:"post",
                                 dataType:"json",
@@ -297,6 +322,8 @@
      });
   });
 
+
+   
 
 
   // SS=<td>&nbsp;</td>

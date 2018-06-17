@@ -116,6 +116,29 @@
               </div>
 
 </div>
+<div>
+              <div class="panel panel-success">
+                <div class="panel-heading">All the comments</div>
+                <div class="panel-body">
+                    <table class="table table-striped table-hover">
+                    <th></th>
+                    <th></th>
+
+                      <th>Blog's Name</th>
+                      <th>Blogs Comments</th>
+                      <th>Blog's Auther</th>
+                      <th>Operations</th>
+                  <th></th>
+                  <th></th>
+                    <tbody id="tblBlogComments">
+                      
+                    </tbody>
+                    </table>
+                      
+                </div>
+              </div>
+
+</div>
       </div>
     <br>
    
@@ -236,7 +259,7 @@
         dataType:"json",
         success:function(data){
           for(var i=0;i<data.length;i++){
-            $('#tblBody').append('<tr><td><label hidden id="lblId">'+data[i].id_b+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].blog_body+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnApr">Aprove</button><tb><td></td><td></td></tr>');
+            $('#tblBody').append('<tr><td><label hidden id="lblId">'+data[i].id_b+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].blog_body.substr(0,250)+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnApr">Aprove</button><tb><td></td><td></td></tr>');
             //alert(data[i].blog_name+':'+data[i].blog_body+':'+data[i].name);
           }
         }
@@ -250,6 +273,38 @@
                        .text();         // Retrieves the text within <td>
         $.ajax({
           url:"php/updateBlog.php",
+          method:"post",
+          data:{id:$item},
+          dataType:"json",
+          success:function(data){
+            alert(data.success);
+          }
+
+        });
+   });
+/*---------This Section is for Comments---------------------------------------*/ 
+
+    $.ajax({
+        url:"php/getCommentsAdmin.php",
+        method:"post",
+        dataType:"json",
+        success:function(data){
+          for(var i=0;i<data.length;i++){
+            $('#tblBlogComments').append('<tr><td><label hidden id="lblId">'+data[i].id+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].comment+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnCMT">Aprove</button><tb><td></td><td></td></tr>');
+            //alert(data[i].blog_name+':'+data[i].blog_body+':'+data[i].name);
+          }
+        }
+    });
+/*------This checks the click of button and update the database---------------------*/
+   $(document).on('click','#btnCMT',function(){
+       
+
+        var $item = $(this).closest("tr")   // Finds the closest row <tr> 
+                       .find("td:first")     // Gets a descendent with class="nr"
+                       .text();
+                                             // Retrieves the text within <td>
+        $.ajax({
+          url:"php/updateCmtStatus.php",
           method:"post",
           data:{id:$item},
           dataType:"json",

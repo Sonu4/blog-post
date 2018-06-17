@@ -7,7 +7,7 @@ require_once 'config.php';
 		$password=$_POST['password'];
 		$gender=$_POST['gender'];
 		$type_of_user=$_POST['type_of_user'];
-
+		$file='NA';
 		$pass=md5($password);
 
 

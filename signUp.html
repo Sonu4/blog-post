@@ -182,58 +182,43 @@
   </body>
 <script type="text/javascript">
           $(document).ready(function(){
-            $('#btnSubmit').on('click',function(){
-                  if ($('#txtName').val()=='') {
-                    alert('Enter Name');
-                  }else if ($('#txtEmail').val()=='') {
-                    alert('Enter Email');
-                  }else if ($('#txtPass1').val()=='') {
-                    alert('Enter Pass1');
-                  }else if ($('#txtPass2').val()=='') {
-                    alert('Enter Pass2');
-                  }else if ($('#txtGenger').val()=='') {
-                    alert('Enter Genger');
-                  }else if ($('#txtAccountType').val()=='') {
-                    alert('Enter Account Type');
-                  }else{
-
-                    // Validations are completed And actual code starts from hear.
-
+           
+                   $('#btnSubmit').click(function(){
                     if ($('#txtPass2').val() == $('#txtPass1').val()) {
 
-                        var inserData={
-                        name:$('#txtName').val(),
-                        email:$('#txtEmail').val(),
-                        password:$('#txtPass2').val(),
-                        gender:$('#txtGenger').val(),
-                        type_of_user:$('#txtAccountType').val(),
-                      };
-                       $.ajax({
-                        url:'php/inserData.php',
-                        method:"post",
-                        data:inserData,
-                        dataType:"json",
-                        success:function(response){
-                          alert(response.success);
-                          if (response.success=="success") {
-                               $('#txtEmail').val('');
-                               $('#txtName').val('');
-                               $('#txtPass1').val('');
-                               $('#txtPass2').val('');
-                               $('#txtGenger').val('');
-                               $('#txtAccountType').val('');
-                          }
-                        }
-                      });
+                              var inserData={
+                              name:$('#txtName').val(),
+                              email:$('#txtEmail').val(),
+                              password:$('#txtPass2').val(),
+                              gender:$('#txtGenger').val(),
+                              type_of_user:$('#txtAccountType').val(),
+                              };
+
+                              $.ajax({
+                              url:'php/inserData.php',
+                              method:"post",
+                              data:inserData,
+                              dataType:"json",
+                              success:function(response){
+                                alert(response.success);
+                                if (response.success=="success") {
+                                    $('#txtEmail').val('');
+                                    $('#txtName').val('');
+                                    $('#txtPass1').val('');
+                                    $('#txtPass2').val('');
+                                    $('#txtGenger').val('');
+                                    $('#txtAccountType').val('');
+                                }
+                              }
+                          });
+                      }
 
 
+                   });
 
-                    }else{
-                        alert("Password is not matching");
-                    }
-                }
+                    
             });
                   
-     });
+    
 </script>
 </html>

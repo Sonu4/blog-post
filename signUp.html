@@ -100,7 +100,7 @@
                          <div>
                            <label>Gender</label>
                              <select id="txtGenger" class="form-control floating-label-form-group controls">
-                               <option></option>
+                               <option>--Select--</option>
                                <option>Male</option>
                                <option>Female</option>
                                <option>Other</option>
@@ -111,8 +111,7 @@
                            <div>
                               <label>Type Of User</label>
                                <select id="txtAccountType" class="form-control floating-label-form-group controls">
-                                 <option></option>
-                                 <option>Admin</option>
+                                 <option>--Select--</option>
                                  <option>Auther</option>
                                  <option>Reader</option>
                                </select>
@@ -184,34 +183,47 @@
           $(document).ready(function(){
            
                    $('#btnSubmit').click(function(){
-                    if ($('#txtPass2').val() == $('#txtPass1').val()) {
+                     if($('#txtName').val()==''){
+                       alert('Add Name');
+                     }else if($('#txtEmail').val()==''){
+                      alert('Add Email');
+                     }else if($('#txtGenger').change()=='--Select--'){
+                      alert('Select Gender');
+                     }else if($('#txtAccountType').change()=='--Select--'){
+                      alert('Select Account Type');
+                     }else{
+                      if ($('#txtPass2').val() == $('#txtPass1').val()) {
 
-                              var inserData={
-                              name:$('#txtName').val(),
-                              email:$('#txtEmail').val(),
-                              password:$('#txtPass2').val(),
-                              gender:$('#txtGenger').val(),
-                              type_of_user:$('#txtAccountType').val(),
-                              };
+                                        var inserData={
+                                        name:$('#txtName').val(),
+                                        email:$('#txtEmail').val(),
+                                        password:$('#txtPass2').val(),
+                                        gender:$('#txtGenger').val(),
+                                        type_of_user:$('#txtAccountType').val(),
+                                        };
 
-                              $.ajax({
-                              url:'php/inserData.php',
-                              method:"post",
-                              data:inserData,
-                              dataType:"json",
-                              success:function(response){
-                                alert(response.success);
-                                if (response.success=="success") {
-                                    $('#txtEmail').val('');
-                                    $('#txtName').val('');
-                                    $('#txtPass1').val('');
-                                    $('#txtPass2').val('');
-                                    $('#txtGenger').val('');
-                                    $('#txtAccountType').val('');
-                                }
-                              }
-                          });
-                      }
+                                        $.ajax({
+                                        url:'php/inserData.php',
+                                        method:"post",
+                                        data:inserData,
+                                        dataType:"json",
+                                        success:function(response){
+                                          alert(response.success);
+                                          if (response.success=="success") {
+                                              $('#txtEmail').val('');
+                                              $('#txtName').val('');
+                                              $('#txtPass1').val('');
+                                              $('#txtPass2').val('');
+                                              $('#txtGenger').val('--Select--');
+                                              $('#txtAccountType').val('--Select--');
+                                          }
+                                        }
+                                        });
+                       }else{
+                         alert("Password's are not matching");
+                       }
+                     }
+                    
 
 
                    });

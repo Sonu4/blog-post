@@ -30,7 +30,8 @@ if ($_FILES["blog_img_1"]["name"]!= '' && $_FILES["blog_img_2"]["name"]!= '' && 
 	$img3=$img_base.$_FILES['blog_img_3']['name'];
 	$img4=$img_base.$_FILES['blog_img_4']['name'];
 
-		$sql="insert into blogs(blog_name,blog_body,img_one,img_two,img_three,img_four,id) values('$blogName','$blogBody','$img1','$img2','$img3','$img4','$id')";
+	
+		$sql="insert into blogs(blog_name,blog_body,img_one,img_two,img_three,img_four,id,published_on) values('$blogName','$blogBody','$img1','$img2','$img3','$img4','$id',current_date())";
 		if (mysqli_query($con,$sql)>0) {
 			echo json_encode($success['success']='success');
 		}

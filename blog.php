@@ -23,7 +23,6 @@
 
     <!-- The minified JQuery -->
     <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
-
   </head>
   <style type="text/css">
     label{
@@ -37,7 +36,34 @@
     p{
       text-align: justify;
     }
-    
+    .parent{
+            position: relative;
+        }
+   .text{
+         position: sticky;
+          top: 30px;
+           
+        }
+    .main_image{
+      float: left;
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+    .two_img{
+      float: right;
+
+    } 
+    .right{
+      
+      position: static;
+      margin-bottom: 20px;
+    } 
+    .pic{
+      margin: 15px;
+    }
+    .mm{
+      margin-bottom: 10px;
+    }
   </style>
 
   <body>
@@ -85,13 +111,18 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"> 
-      <div class="row">
-        <table id="tblList" class="table table-striped" style="border-collapse: collapse;" ></table>
-      </div>
+    <div class="container" id="tbmlMain"> 
+      <!-- <div class="row" id="rwMain">
+        <table id="tblList" class="table table-striped" style="border-collapse: collapse;" ></table> 
+      </div> -->
+
+
 
     </div>
-
+    <hr>
+    <div class="container">
+      <button class="btn btn-primary" id="btnAddComments">Add Comments</button>
+    </div>
     <hr>
 
     <!-- Footer -->
@@ -131,6 +162,53 @@
       </div>
     </footer>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="mm">
+                   <input type="text" class="form-control" placeholder="Email" id="email">
+               </div>
+               <div class="mm">
+                 <input type="password" class="form-control" placeholder="Password" id="password">
+               </div>
+               <div><button class="btn btn-primary" id="btnAuthenticate">Authenticate</button></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+      
+        </div>
+      </div>
+
+     <!-- Modal -->
+    <div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="mm">
+                  <textarea class="form-control" placeholder="Add Your Comments" id="txtComments"></textarea>
+               </div>
+               <div><button class="btn btn-primary" id="btnSubMit">Submit</button></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+      
+        </div>
+      </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -144,27 +222,79 @@
       var listvalues = localStorage.getItem('ids');
       var finalvalue = JSON.parse(listvalues);
       var ids=finalvalue.id;
-      
+      getData();
       /*----------Actual list is shown in here--------------*/
 
-      $.ajax({
-        url:"php/getOneBlog.php",
-        method:"post",
-        data:{id:ids},
-        dataType:"json",
-        success:function(data){
-          
-
-            $('#tblList').append('<tr><td colspan="2"><label style="text-align:center;">'+data[0].blog_name+'</label></td></tr><tr><td><img src="php/upload/'+data[0].img_one.replace(/\"/g, "")+'" width="300px" height="300px"></td><td colspan="2"><p href="index.php">'+data[0].blog_body+'</p></td></tr><tr><td><img src="php/upload/'+data[0].img_two.replace(/\"/g, "")+'" width="300px" height="300px"></td><td style="text-align:center;"><img src="php/upload/'+data[0].img_three.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><img src="php/upload/'+data[0].img_four.replace(/\"/g, "")+'" width="300px" height="300px"></td></tr></tr><hr>');
-
-            // $('#tblList').append('<tr style="margin-top:50px;"><td colspan="5" style=" padding-bottom: .5em; text-align:center; "><strong>'+data[i].blog_name+'</strong></td></tr style=" padding-bottom: .5em;"><tr><td><img src="php/upload/'+data[i].img_one.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td rowspan="3" style="vertical-align: top;text-align: justify;">'+data[i].blog_body+'</td></tr><tr><td><img src="php/upload/'+data[i].img_two.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td></td></tr><tr style="margin-bottom:50px;"><td><img src="php/upload/'+data[i].img_three.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td></td></tr><br /><br />');
-            
-          
-        }
-      });
+      function getData(){
+            $.ajax({
+              url:"php/getOneBlog.php",
+              method:"post",
+              data:{id:ids},
+              dataType:"json",
+              success:function(data){
+      
+                  $('#tbmlMain').append(' <div class="parent"><div class="img"><img  src="php/upload/'+data[0].img_one.replace(/\"/g, "")+'" width="300px" height="300px" class="main_image"><div class="text"><p class="text">'+data[0].blog_body+'</p></div></div></div>');
+                  $('#tbmlMain').append('<div class="row"><td><img class="pic" src="php/upload/'+data[0].img_two.replace(/\"/g, "")+'" width="300px" height="300px"></td><td style="text-align:center;"><img class="pic" src="php/upload/'+data[0].img_three.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><img class="pic" src="php/upload/'+data[0].img_four.replace(/\"/g, "")+'" width="300px" height="300px"></div>');
+                  $('#tbmlMain').append('<div class="right"><i>Written By--Shubham Kothe</i></div>');  
+                
+                  //$('#tblList').append('<tr><td colspan="2"><label style="text-align:center;">'+data[0].blog_name+'</label></td></tr><tr><td><img src="php/upload/'+data[0].img_one.replace(/\"/g, "")+'" width="300px" height="300px"></td><td colspan="2"><p href="index.php">'+data[0].blog_body+'</p></td></tr><tr><td><img src="php/upload/'+data[0].img_two.replace(/\"/g, "")+'" width="300px" height="300px"></td><td style="text-align:center;"><img src="php/upload/'+data[0].img_three.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><img src="php/upload/'+data[0].img_four.replace(/\"/g, "")+'" width="300px" height="300px"></td></tr></tr><hr>');
+      
+                  // $('#tblList').append('<tr style="margin-top:50px;"><td colspan="5" style=" padding-bottom: .5em; text-align:center; "><strong>'+data[i].blog_name+'</strong></td></tr style=" padding-bottom: .5em;"><tr><td><img src="php/upload/'+data[i].img_one.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td rowspan="3" style="vertical-align: top;text-align: justify;">'+data[i].blog_body+'</td></tr><tr><td><img src="php/upload/'+data[i].img_two.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td></td></tr><tr style="margin-bottom:50px;"><td><img src="php/upload/'+data[i].img_three.replace(/\"/g, "")+'" style="width:300px;height:300px"></td><td></td></tr><br /><br />');
+                  
+                
+              }
+            });
+      }
 
      
 
+     $('#btnAddComments').click(function(){
+          $('#myModal').modal('toggle');
+     });
+     
+     $('#btnAuthenticate').click(function(){
+            $.ajax({
+                url:"php/authenticateData.php",
+                data:{
+                  email:$('#email').val(),
+                  password:$('#password').val()
+                },
+                method:"post",
+                dataType:"json",
+                success:function(data){
+                    if(data.success=='success' && data.type_of_user=='Reader'){
+                     $('#myModal2').modal('toggle');
+                     $('#myModal').hide(); 
+                     var cmt=$('#txtComments').val();
+
+                     $('#btnSubMit').click(function(){
+                          if($('#txtComments').val()==''){
+
+                          }else{
+                              $.ajax({
+                                url:"php/addComments.php",
+                                data:{
+                                  comment:cmt,
+                                  id_b:data.id
+                                },
+                                method:"post",
+                                dataType:"json",
+                                success:function(data){
+                                    alert(data.success);
+                                    $('#myModal2').hide();
+                                    window.location.replace("blog.php");
+                                }
+                            });
+                          }
+
+                        }); 
+                    
+                    }else{
+                       alert("First Sign Up as a Reader");
+                    }
+                }
+            });
+     });
   });
 
 

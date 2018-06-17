@@ -18,7 +18,7 @@ require_once 'config.php';
 
 
 		if ($result > 0) {
-			$success['success']="success";	
+			$success['success']="success";
 		}else {
 			$success['success']="failure";
 		}

@@ -208,29 +208,14 @@
                         gender:$('#txtGenger').val(),
                         type_of_user:$('#txtAccountType').val(),
                       };
-
-
-                     
-
-                      $.ajax({
+                       $.ajax({
                         url:'php/inserData.php',
                         method:"post",
                         data:inserData,
                         dataType:"json",
-                        statusCode: {          // shows the status of the replay
-                          404: function () {
-                            //error
-                          },
-                          200: function (data) {
-                            //response data
-                            //alert(data);
-                            
-                          }
-                        },
                         success:function(response){
                           alert(response.success);
                           if (response.success=="success") {
-                          
                                $('#txtEmail').val('');
                                $('#txtName').val('');
                                $('#txtPass1').val('');
@@ -238,7 +223,7 @@
                                $('#txtGenger').val('');
                                $('#txtAccountType').val('');
                           }
-                        },
+                        }
                       });
 
 

@@ -78,7 +78,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-           
+
             <form class="form-group">
               <div class="form-group">
                 <label class="sr-only" >Email address</label>
@@ -91,7 +91,7 @@
               </div><br><br>
               <button type="button" id="btnSubmit" class="btn btn-default">Sign in</button>
             </form>
-            
+
           </div>
         </div>
       </div>
@@ -147,15 +147,15 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-      
-     
+
+
       $('#btnSubmit').click(function(){
         var email=$('#txtEmail').val();
         var password=$('#txtPassword').val();
 
             $.ajax({
           url:'php/authenticateData.php',
-          data:{email:email,password:password},    
+          data:{email:email,password:password},
           method:"post",
           dataType:"json",
           success:function(data){
@@ -167,28 +167,28 @@
 
                   window.location.replace("admin.php");
                   var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
-                  localStorage.setItem('lists', JSON.stringify(listvalues)); 
+                  localStorage.setItem('lists', JSON.stringify(listvalues));
 
               }else if(data.type_of_user=='Auther'){
 
                  window.location.replace("profile.php");
                   var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
-                  localStorage.setItem('lists', JSON.stringify(listvalues)); 
+                  localStorage.setItem('lists', JSON.stringify(listvalues));
 
               }else if(data.type_of_user=='Reader'){
                window.location.replace("user.php");
                var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
-               localStorage.setItem('lists', JSON.stringify(listvalues)); 
+               localStorage.setItem('lists', JSON.stringify(listvalues));
 
               }
 
-              
+
             }
 
           }
       });
       });
-      
+
     });
 </script>
 </html>

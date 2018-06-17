@@ -158,7 +158,7 @@
         success:function(data){
           //alert(data);
 
-          for (var i = 0;i<data.length; i++) {
+          for(var i = 0;i<data.length; i++) {
 
             $('#tblList').append('<tr><td colspan="2"><label style="text-align:center;">'+data[i].blog_name+'</label></td></tr><tr><td><img src="php/upload/'+data[i].img_one.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><p href="index.php">'+data[i].blog_body.substr(0,300)+'....</p></td></tr><td><button class="btn btn-primary" id="btnView">View</button></td><td><h5 hidden="true">'+data[i].id_b+'<h5><td></tr><hr>');
 
@@ -167,6 +167,7 @@
           }
         }
       });
+      
 
       $(document).on('click','#btnView',function(){
             var id_b=$(this).closest('tr').find('h5').text();
@@ -179,8 +180,5 @@
 
   });
 
-
-
-  // SS=<td>&nbsp;</td>
 </script>
 </html>

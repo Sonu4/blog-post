@@ -171,14 +171,14 @@
 
               }else if(data.type_of_user=='Auther'){
 
-                 window.location.replace("profile.php");
+                 window.location.replace("auther.php");
                   var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
                   localStorage.setItem('lists', JSON.stringify(listvalues));
 
               }else if(data.type_of_user=='Reader'){
-               window.location.replace("user.php");
-               var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
-               localStorage.setItem('lists', JSON.stringify(listvalues));
+               window.location.replace("index.html");
+              //  var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
+              //  localStorage.setItem('lists', JSON.stringify(listvalues));
 
               }
 

@@ -187,10 +187,14 @@
                        alert('Add Name');
                      }else if($('#txtEmail').val()==''){
                       alert('Add Email');
-                     }else if($('#txtGenger').change()=='--Select--'){
+                     }else if($('#txtGenger').change().val()=='--Select--'){
                       alert('Select Gender');
-                     }else if($('#txtAccountType').change()=='--Select--'){
+                     }else if($('#txtAccountType').change().val()=='--Select--'){
                       alert('Select Account Type');
+                     }else if($('#txtPass1').val()==''){
+                      alert('Password is Empty');
+                     }else if($('#txtPass2').val()==''){
+                      alert('Password is Empty');
                      }else{
                       if ($('#txtPass2').val() == $('#txtPass1').val()) {
 

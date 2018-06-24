@@ -34,7 +34,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default" id="mainNav1">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="index.html"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
           Menu's 
           <i class="fa fa-bars"></i>
@@ -42,16 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="signUp.html">Sign Up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="post.html">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="post.html">Log Out</a>
             </li>
           </ul>
         </div>
@@ -236,7 +227,7 @@
    
         
     });
-  /*----this assigns the profile data to its html variables-------*/     
+  /*----------this assigns the profile data to its html variables-------------------------------*/     
     $.ajax({
       url:'php/getProfile.php',
       method:"post",
@@ -253,17 +244,19 @@
 
 /*----------------------From This Admin Operations Begin-----------------------------*/
 
-    $.ajax({
+  $.ajax({
         url:"php/getAdminData.php",
         method:"post",
         dataType:"json",
         success:function(data){
           for(var i=0;i<data.length;i++){
-            $('#tblBody').append('<tr><td><label hidden id="lblId">'+data[i].id_b+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].blog_body.substr(0,250)+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnApr">Aprove</button><tb><td></td><td></td></tr>');
+            $('#tblBody').append('<tr><td><label hidden id="lblId">'+data[i].id_b+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].blog_body.substr(0,250)+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnApr">Aprove</button><tb><td><butto class="btn btn-primary" id="btnDelete">Delete</button></td><td></td></tr>');
             //alert(data[i].blog_name+':'+data[i].blog_body+':'+data[i].name);
           }
         }
     });
+
+    
 /*------This checks the click of button and update the database---------------------*/
    $(document).on('click','#btnApr',function(){
        
@@ -278,10 +271,30 @@
           dataType:"json",
           success:function(data){
             alert(data.success);
+           
           }
 
         });
    });
+/*-----------Delete blogs from table----------------------------*/   
+$(document).on('click','#btnDelete',function(){
+       
+
+       var $item = $(this).closest("tr")   // Finds the closest row <tr> 
+                      .find("td:first")     // Gets a descendent with class="nr"
+                      .text();         // Retrieves the text within <td>
+       $.ajax({
+         url:"php/deleteBlog.php",
+         method:"post",
+         data:{id:$item},
+         dataType:"json",
+         success:function(data){
+           alert(data.success);
+           
+         }
+
+       });
+  });
 /*---------This Section is for Comments---------------------------------------*/ 
 
     $.ajax({
@@ -290,11 +303,12 @@
         dataType:"json",
         success:function(data){
           for(var i=0;i<data.length;i++){
-            $('#tblBlogComments').append('<tr><td><label hidden id="lblId">'+data[i].id+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].comment+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnCMT">Aprove</button><tb><td></td><td></td></tr>');
+            $('#tblBlogComments').append('<tr><td><label hidden id="lblId">'+data[i].id+'</label></td><td></td><td>'+data[i].blog_name+'</td><td>'+data[i].comment+'</td><td>'+data[i].name+'</td><td><butto class="btn btn-primary" id="btnCMT">Aprove</button><tb><td><butto class="btn btn-primary" id="btnDelCmt">Delete</button></td><td></td></tr>');
             //alert(data[i].blog_name+':'+data[i].blog_body+':'+data[i].name);
           }
         }
     });
+     
 /*------This checks the click of button and update the database---------------------*/
    $(document).on('click','#btnCMT',function(){
        
@@ -310,11 +324,32 @@
           dataType:"json",
           success:function(data){
             alert(data.success);
+           
           }
 
         });
    });
+/*-----------------Delete Comments-----------------------------*/
 
+ $(document).on('click','#btnDelCmt',function(){
+       
+
+       var $item = $(this).closest("tr")   // Finds the closest row <tr> 
+                      .find("td:first")     // Gets a descendent with class="nr"
+                      .text();
+                                           // Retrieves the text within <td>
+       $.ajax({
+         url:"php/deleteCmt.php",
+         method:"post",
+         data:{id:$item},
+         dataType:"json",
+         success:function(data){
+           alert(data.success);
+         
+         }
+
+       });
+  });
    });
 </script>
 </html>

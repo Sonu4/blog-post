@@ -4,7 +4,8 @@
 
 	$id=$_POST['id'];
 
-	$sql="SELECT `id_b`, `blog_name`, `blog_body`, `img_one`, `img_two`, `img_three`, `img_four`, `id`, `access` FROM `blogs` WHERE access=1 AND id_b='$id'";
+	$sql="SELECT blogs.id_b, blogs.blog_name, blogs.blog_body, blogs.img_one, blogs.img_two, blogs.img_three, blogs.img_four, blogs.id, blogs.access
+	,profile.name FROM blogs inner join profile on profile.id=blogs.id WHERE blogs.access=1 AND blogs.id_b='$id'";
 
 	$result=mysqli_query($con,$sql);
 

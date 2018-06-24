@@ -87,9 +87,6 @@
             <li class="nav-item">
               <a class="nav-link" href="post.html">Login</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
           </ul>
         </div>
       </div>
@@ -246,7 +243,7 @@
                   localStorage.setItem('blog_id',JSON.stringify(blog_id));
                   $('#tbmlMain').append(' <div class="parent"><div class="img"><img  src="php/upload/'+data[0].img_one.replace(/\"/g, "")+'" width="300px" height="300px" class="main_image"><div class="text"><p class="text">'+data[0].blog_body+'</p></div></div></div>');
                   $('#tbmlMain').append('<div class="row"><td><img class="pic" src="php/upload/'+data[0].img_two.replace(/\"/g, "")+'" width="300px" height="300px"></td><td style="text-align:center;"><img class="pic" src="php/upload/'+data[0].img_three.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><img class="pic" src="php/upload/'+data[0].img_four.replace(/\"/g, "")+'" width="300px" height="300px"></div>');
-                  $('#tbmlMain').append('<div class="right"><i>Written By--Shubham Kothe</i></div>');  
+                  $('#tbmlMain').append('<div class="right"><i>Written By--'+data[0].name+'</i></div>');  
                 
                   //$('#tblList').append('<tr><td colspan="2"><label style="text-align:center;">'+data[0].blog_name+'</label></td></tr><tr><td><img src="php/upload/'+data[0].img_one.replace(/\"/g, "")+'" width="300px" height="300px"></td><td colspan="2"><p href="index.php">'+data[0].blog_body+'</p></td></tr><tr><td><img src="php/upload/'+data[0].img_two.replace(/\"/g, "")+'" width="300px" height="300px"></td><td style="text-align:center;"><img src="php/upload/'+data[0].img_three.replace(/\"/g, "")+'" width="300px" height="300px"></td><td><img src="php/upload/'+data[0].img_four.replace(/\"/g, "")+'" width="300px" height="300px"></td></tr></tr><hr>');
       
@@ -256,6 +253,7 @@
                     url:"php/getAllComments.php",
                     method:"post",
                     dataType:"json",
+                    data:{id:data[0].id_b},
                     success:function(data){
                       for(var i=0;i<data.length;i++){
                         $('#tblComments').append('<tr><td>'+data[i].comment+'</td><td>'+data[i].name+'</td></tr>');

@@ -53,7 +53,7 @@
 			<li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Authers</a></li>
 			<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Readers</a></li>
 			<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> My Blogs</a></li>
-			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="index.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 		
@@ -187,7 +187,7 @@
 	<script src="js/easypiechart-data.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/custom.js"></script>
-		<script>
+	<script>
 		window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");
 	window.myLine = new Chart(chart1).Line(lineChartData, {
@@ -198,12 +198,7 @@
 	});
 };
 
-	$('document').ready(function(){
-		$(document).ready(function() {
-			
-			$('#tblBody').DataTable();
-		} );
-	});
+
 	</script>
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -212,7 +207,7 @@
 			 var id=finalvalue.id;
 			 var type_of_user=finalvalue.type_of_user;
 			 console.log(id+':'+type_of_user);
-		 
+				
 		 /*----------------This function is responsible for updating Profile image-------*/
 			 $.post('php/getImage.php',{id:id},function(data){
 			   $('#uploadedImage').attr('src','php/upload/profile/'+data.replace(/\"/g, ""));// this replaces the double quotes with null.

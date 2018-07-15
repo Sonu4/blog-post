@@ -271,7 +271,7 @@
           dataType:"json",
           success:function(data){
             alert(data.success);
-           
+            window.location.replace("admin.php");
           }
 
         });
@@ -290,7 +290,7 @@ $(document).on('click','#btnDelete',function(){
          dataType:"json",
          success:function(data){
            alert(data.success);
-           
+           window.location.replace("admin.php");
          }
 
        });
@@ -324,7 +324,7 @@ $(document).on('click','#btnDelete',function(){
           dataType:"json",
           success:function(data){
             alert(data.success);
-           
+            window.location.replace("admin.php");
           }
 
         });
@@ -345,7 +345,7 @@ $(document).on('click','#btnDelete',function(){
          dataType:"json",
          success:function(data){
            alert(data.success);
-         
+           window.location.replace("admin.php");
          }
 
        });

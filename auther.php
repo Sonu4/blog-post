@@ -433,6 +433,7 @@
             dataType:"json",
             success:function(data){
               alert(data.success);
+              window.location.replace("auther.php");
             }
           });
     });

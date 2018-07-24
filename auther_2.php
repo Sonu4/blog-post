@@ -191,6 +191,8 @@
     var id=finalvalue.id;
     var type_of_user=finalvalue.type_of_user;
     console.log(id+':'+type_of_user);
+    var session = sessionStorage.getItem("AutherSession");	
+		if(session=="aprove"){
 
 /*----------------This function is responsible for updating Profile image-------*/
     $.post('php/getImage.php',{id:id},function(data){
@@ -396,7 +398,10 @@
 
   });
 
-    
+    }else{
+      window.location.replace("index.html");
+				alert("You are not allowed Here");
+    }
 
    });
 </script>

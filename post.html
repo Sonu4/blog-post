@@ -157,14 +157,14 @@
             if (data.success=='success') {
 
               if (data.type_of_user=='Admin') {
-
+                  sessionStorage.setItem("AdminSession","aprove");
                   window.location.replace("index_2.html");
                   var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
                   localStorage.setItem('lists', JSON.stringify(listvalues));
 
               }else if(data.type_of_user=='Auther'){
-
-                 window.location.replace("auther_2.php");
+                  sessionStorage.setItem("AutherSession","aprove");
+                  window.location.replace("auther.php");
                   var listvalues = { "id": data.id, "type_of_user":data.type_of_user}
                   localStorage.setItem('lists', JSON.stringify(listvalues));
 

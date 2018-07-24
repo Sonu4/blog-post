@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Lumino - Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="datatables.min.css"/>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
@@ -15,7 +16,30 @@
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-	
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+	<!-- <script type="text/javascript" src="datatables.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() 
+	{
+		$('#tblBody').dataTable({
+        "aoColumns": [
+          null
+        ]
+    });   
+
+		$('#tblBlogComments').dataTable({
+        "aoColumns": [
+          null
+        ]
+    });   
+	});
+	</script> -->
+			
+	<!-- <script type="text/javascript">
+		$('#tblBlog')
+		.addClass('table table-bordered table-striped');
+	</script>	 -->
 	
 </head>
 <body>
@@ -120,20 +144,23 @@
 						<div class="canvas-wrapper">
 								<div>
 								
-										<table class="table table-striped table-hover">
+										<table id="tblBody" class="table table-striped table-hover">
+										<thead>	
+										<tr>	 
 											 <th></th>
 											 <th></th>
-						 
-											   <th>Blog's Name</th>
-											   <th>Blog's Body</th>
-											   <th>Blog's Auther</th>
-											   <th>Operations</th>
-										   <th></th>
-										   <th></th>
-											 <tbody id="tblBody">
+											 <th>Blog's Name</th>
+											 <th>Blog's Body</th>
+											 <th>Blog's Auther</th>
+											 <th>Operations</th>
+											 <th></th>
+											 <th></th>
+										</tr>	 
+										</thead>	 
+										<tbody>
 											   
-											 </tbody>
-											 </table>
+										</tbody>
+									    </table>
 											   
 									   
 						 
@@ -152,20 +179,23 @@
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
-									<table class="table table-striped table-hover">
-											<th></th>
-											<th></th>
-						
+									<table id="tblBlogComments" class="table table-striped table-hover">
+										<thead>	
+										<tr>	 
+											 <th></th>
+											 <th></th>
 											  <th>Blog's Name</th>
 											  <th>Blogs Comments</th>
 											  <th>Blog's Auther</th>
 											  <th>Operations</th>
-										  <th></th>
-										  <th></th>
-											<tbody id="tblBlogComments">
+										      <th></th>
+											  <th></th>
+										</tr>	  
+										</thead>	  
+										<tbody>
 											  
-											</tbody>
-											</table>
+										</tbody>
+										</table>
 							</div>
 								
 						</div>
@@ -187,6 +217,17 @@
 	<script src="js/easypiechart-data.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/custom.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript"  src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  <script>
+  $(function(){
+   
+ 
+})
+  </script>
+</body>
+</html>
+
 	<script>
 		window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");
@@ -207,7 +248,9 @@
 			 var id=finalvalue.id;
 			 var type_of_user=finalvalue.type_of_user;
 			 console.log(id+':'+type_of_user);
-				
+		     var session = sessionStorage.getItem("AdminSession");	
+			if(session=="aprove"){
+
 		 /*----------------This function is responsible for updating Profile image-------*/
 			 $.post('php/getImage.php',{id:id},function(data){
 			   $('#uploadedImage').attr('src','php/upload/profile/'+data.replace(/\"/g, ""));// this replaces the double quotes with null.
@@ -404,7 +447,11 @@
 				  }
 		 
 				});			
-
+			}
+			else{
+				window.location.replace("index.html");
+				alert("You are not allowed Here");
+			}
 			});
 			  
 		 </script>	

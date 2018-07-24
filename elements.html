@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Lumino My Blogs</title>
+	<link rel="stylesheet" type="text/css" href="datatables.min.css"/>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
@@ -15,6 +16,26 @@
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+
+	<!-- <script type="text/javascript" src="datatables.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() 
+	{
+		$('#tblDetails').dataTable({
+        "aoColumns": [
+          null
+        ]
+        });   
+
+		
+	});
+	</script>
+	<script type="text/javascript">
+		$('#tblDetails')
+		.addClass('table table-bordered table-striped');
+	</script> -->
 </head>
 <body>
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -89,15 +110,20 @@
 											<div class="row">
 													  <div class="panel panel-primary ">
 														<div class="panel-body">
-														<form>
+												<form>
 														<div class="form-group">
 														<textarea type="text"  placeholder="Write your blog." id="blogBody" style="width:950px; height:250px;"></textarea>
 													 </div>
 												</form>
 										</div>
-											
-								
+									<div class="container">
+											<p id="msg"></p>
+											<input type="file" id="multiFiles" name="files[]" multiple="multiple"/>
+											<button id="upload" class="btn btn-primary" style="margin-top: 5px;">Upload</button>
+									</div>
+										
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -112,16 +138,17 @@
 					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
-									<table class="table">
+									<table id="tblDetails" class="table">
+										<thead>
+										<tr>
 											<th></th>
 											<th>Blog Name</th>
 											<th colspan="1">Content</th>
-											
-											
 											<th>Action</th>
 											<th></th>
-											<tbody id="tblDetails">
-								
+										</tr>
+										</thead>	
+											<tbody>
 											</tbody>
 										  </table>	
 							</div>
@@ -157,7 +184,7 @@
 				 </div>
 			   </div>
 	 </div>
-	   
+
 <script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/chart.min.js"></script>
@@ -183,7 +210,7 @@
       dataType:"json",
       success:function(data){
         for (var i=0;i<data.length;i++) {
-          $('#tblDetails').append('<tr><td><label hidden id="lblID">'+data[i].id_b+'</label></td><td>'+data[i].blog_name+'</td><td>'+data[i].blog_body.substr(0,450)+'</td><td><button id="btnDelete" class="btn btn-primary">Delete</button><td><button class="btn btn-primary" id="btnComments">Comments</button></td></td></tr>');
+          $('#tblDetails').append('<tr><td><label hidden id="lblID">'+data[i].id_b+'</label></td><td>'+data[i].blog_name+'</td><td>'+data[i].blog_body.substr(0,450)+'</td><td><button id="btnDelete" class="btn btn-primary">Delete</button></td><td><button class="btn btn-primary" id="btnComments">Comments</button></td></tr>');
         }
         
       }
@@ -228,7 +255,60 @@
     $('#addPage').modal('toggle');    
 
   });
+  function uploadBlog(){
+	var form_data=new FormData();
+					form_data.append('blogName',$('#blogName').val());// Blogs Name.
+					form_data.append('blogBody',$('#blogBody').val());// Blogs Body.
+					form_data.append('id',finalvalue.id);
 
+		 			 $.ajax({
+						url:"php/blogUpload.php",
+						method:"post",
+						data:form_data,
+						dataType:"json",
+						contentType:false,
+						cache:false,
+						processData:false,
+						success:function(data){
+						alert(data);
+						if (data =='success') {
+							$('#blogName').val('');
+							$('#blogBody').val('');
+						}
+						}
+					});
+
+  }
+/*--------------Calling modal-------------------------------------------*/
+     $('#upload').on('click', function () {
+
+
+		             uploadBlog();
+		            
+
+                    var form_data1 = new FormData();
+                    var ins = document.getElementById('multiFiles').files.length;
+                    for (var x = 0; x < ins; x++) {
+                        form_data1.append("files[]", document.getElementById('multiFiles').files[x]);	
+                    }
+					form_data1.append('id',finalvalue.id);
+                    $.ajax({
+                        url: 'php/uploadsMul.php', // point to server-side PHP script 
+                        dataType: 'text', // what to expect back from the PHP script
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data1,
+                        type: 'post',
+                        success: function (response) {
+                            $('#msg').html(response); // display success response from the PHP script
+                        },
+                        error: function (response) {
+                            $('#msg').html(response); // display error response from the PHP script
+                        }
+                    });
+                });
+	  
 	});
 	</script>
 </body>

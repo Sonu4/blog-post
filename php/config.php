@@ -1,5 +1,5 @@
 <?php 
-		$con=mysqli_connect("localhost", "root", "root", "blogdb");
+		$con=mysqli_connect("localhost", "phpmyadmin", "some_pass", "blogdb");
 		if (!$con) {
 			die("Connnection Failed");
 		}

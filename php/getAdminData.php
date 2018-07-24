@@ -1,5 +1,5 @@
 <?php 
-ini_set("display_errors","on");
+ini_set("display_errors","off");
 	require_once 'config.php';
 
 	$sql="SELECT blogs.id_b,blogs.blog_name,blogs.blog_body,blogs.id,profile.name,profile.email FROM blogs 

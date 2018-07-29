@@ -146,6 +146,10 @@
       var id=finalvalue.id;
       var type_of_user=finalvalue.type_of_user;
 
+        $.get('php/abort_session.php',function(data){
+			  // alert(data);
+		   });
+
       /*----------Actual list is shown in here--------------*/
 
       $.ajax({

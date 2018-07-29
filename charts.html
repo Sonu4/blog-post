@@ -142,6 +142,10 @@
 	<script src="js/custom.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			$.get('php/session.php',function(data){
+			
+			if(data=='SET'){			
 	    /*----------------------From This Admin Operations Begin-----------------------------*/
 		 
 				 $.ajax({
@@ -176,7 +180,9 @@
 		 
 				 });
 			});
-		 /*-----------Delete blogs from table----------------------------*/   
+		 /*-----------Delete blogs from table----------------------------*/  
+			}
+			}); 
 		});
 	 </script>
 </body>

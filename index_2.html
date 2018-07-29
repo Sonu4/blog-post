@@ -77,7 +77,7 @@
 			<li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Authers</a></li>
 			<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Readers</a></li>
 			<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> My Blogs</a></li>
-			<li><a href="index.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="index.html"><em class="fa fa-power-off" id="btnLogout">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 		
@@ -248,8 +248,10 @@
 			 var id=finalvalue.id;
 			 var type_of_user=finalvalue.type_of_user;
 			 console.log(id+':'+type_of_user);
-		     var session = sessionStorage.getItem("AdminSession");	
-			if(session=="aprove"){
+		 
+		  $.get('php/session.php',function(data){
+			
+			  if(data=='SET'){
 
 		 /*----------------This function is responsible for updating Profile image-------*/
 			 $.post('php/getImage.php',{id:id},function(data){
@@ -447,11 +449,16 @@
 				  }
 		 
 				});			
-			}
-			else{
+			
+				
+						  
+			}else{
 				window.location.replace("index.html");
-				alert("You are not allowed Here");
 			}
+		  });
+		  
+		  
+
 			});
 			  
 		 </script>	

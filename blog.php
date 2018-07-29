@@ -124,10 +124,7 @@
     <div class="container">
         <div>
           <table class="table table-striped" id="tblComments">
-              <tr>
-                <th>Comment</th>
-                <th>Commented By</th>
-              </tr>
+             
           </table>
         </div>
     </div>
@@ -256,7 +253,7 @@
                     data:{id:data[0].id_b},
                     success:function(data){
                       for(var i=0;i<data.length;i++){
-                        $('#tblComments').append('<tr><td>'+data[i].comment+'</td><td>'+data[i].name+'</td></tr>');
+                        $('#tblComments').append('<tr><td><b><i>'+data[i].name+'<i></b></td></tr><tr><td>'+data[i].comment+'</td></tr>');
                       }
                      
                     }

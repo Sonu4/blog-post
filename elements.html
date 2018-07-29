@@ -200,7 +200,9 @@
     var id=finalvalue.id;
     var type_of_user=finalvalue.type_of_user;
     console.log(id+':'+type_of_user);
-
+	$.get('php/session.php',function(data){
+			
+			if(data=='SET'){
 /*-------------We are getting all the blogs the user has uploadede -------------------*/
 
     $.ajax({
@@ -308,7 +310,10 @@
                         }
                     });
                 });
-	  
+
+			}
+
+	});
 	});
 	</script>
 </body>

@@ -12,14 +12,20 @@ ini_set('display_errors','on');
 	$result=mysqli_query($con,$sql);
 	$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 	
-
+	session_start();
 	if($row['email']==$email && $row['password']==$pass) {
+
+	
+	    $_SESSION['uname']='SET';
+
 		$success['success']='success';
 		$success['id']=$row['id'];
 		$success['type_of_user']=$row['type_of_user'];
 
+	
 			
 	}else {
+	    $_SESSION['uname']='UNSET';
 		$success['success']='failure';
 			
 	}
